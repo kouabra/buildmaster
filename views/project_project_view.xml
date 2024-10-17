@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_project_form_inherit" model="ir.ui.view">
+        <field name="name">project.edit.project.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <!-- Ajoutez votre champ ouvrage_id après le champ que vous souhaitez cibler -->
+            <xpath expr="//field[@name='date_start']" position="after">
+                <field name="ouvrage_id" />
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="entrepreneur_id" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

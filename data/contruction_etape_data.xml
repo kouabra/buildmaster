@@ -1,0 +1,76 @@
+<!-- data/sous_etape_data.xml -->
+<odoo>
+    <!-- Sous-étapes pour Terrassement -->
+    <record id="sous_etape_etude_geo" model="construction.sous.etape">
+        <field name="name">Étude géotechnique</field>
+    </record>
+    <record id="sous_etape_decapage" model="construction.sous.etape">
+        <field name="name">Décapage</field>
+    </record>
+    <record id="sous_etape_nivellement" model="construction.sous.etape">
+        <field name="name">Nivellement</field>
+    </record>
+
+    <!-- Sous-étapes pour Fondations -->
+    <record id="sous_etape_coffrage" model="construction.sous.etape">
+        <field name="name">Coffrage</field>
+    </record>
+    <record id="sous_etape_armature" model="construction.sous.etape">
+        <field name="name">Pose des armatures</field>
+    </record>
+    <record id="sous_etape_beton" model="construction.sous.etape">
+        <field name="name">Coulage du béton</field>
+    </record>
+
+    <!-- Sous-étapes pour Élévation des murs -->
+    <record id="sous_etape_murs_rdc" model="construction.sous.etape">
+        <field name="name">Murs du rez-de-chaussée</field>
+    </record>
+    <record id="sous_etape_poteaux" model="construction.sous.etape">
+        <field name="name">Pose des poteaux</field>
+    </record>
+    <record id="sous_etape_linteaux" model="construction.sous.etape">
+        <field name="name">Pose des linteaux</field>
+    </record>
+
+    <!-- Sous-étapes pour la Dalle -->
+    <record id="sous_etape_coffrage_dalle" model="construction.sous.etape">
+        <field name="name">Coffrage de la dalle</field>
+    </record>
+    <record id="sous_etape_armature_dalle" model="construction.sous.etape">
+        <field name="name">Pose des armatures de la dalle</field>
+    </record>
+    <record id="sous_etape_beton_dalle" model="construction.sous.etape">
+        <field name="name">Coulage de la dalle</field>
+    </record>
+
+    <!-- Sous-étapes pour Charpente et Couverture -->
+    <record id="sous_etape_charpente" model="construction.sous.etape">
+        <field name="name">Installation de la charpente</field>
+    </record>
+    <record id="sous_etape_couverture" model="construction.sous.etape">
+        <field name="name">Pose de la couverture</field>
+    </record>
+
+    <!-- Sous-étapes pour le Second Œuvre -->
+    <record id="sous_etape_electricite" model="construction.sous.etape">
+        <field name="name">Travaux d'électricité</field>
+    </record>
+    <record id="sous_etape_plomberie" model="construction.sous.etape">
+        <field name="name">Travaux de plomberie</field>
+    </record>
+    <record id="sous_etape_cloison" model="construction.sous.etape">
+        <field name="name">Pose des cloisons</field>
+    </record>
+
+    <!-- Sous-étapes pour les Finitions -->
+    <record id="sous_etape_menuiserie" model="construction.sous.etape">
+        <field name="name">Travaux de menuiserie</field>
+    </record>
+    <record id="sous_etape_sanitaire" model="construction.sous.etape">
+        <field name="name">Pose des équipements sanitaires</field>
+    </record>
+    <record id="sous_etape_peinture" model="construction.sous.etape">
+        <field name="name">Peinture et finitions</field>
+    </record>
+</odoo>

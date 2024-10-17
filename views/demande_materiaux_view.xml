@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_demande_materiaux_form" model="ir.ui.view">
+    <field name="name">demande.materiaux.form</field>
+    <field name="model">construction.demande.materiaux</field>
+    <field name="arch" type="xml">
+        <form string="Demande de Matériaux">
+            <header>
+                <button name="action_valider" type="object" string="Valider" invisible="statut != 'brouillon'" class="btn-primary"/>
+                <button name="action_livrer" type="object" string="Livrer" invisible="statut in ('livre', 'brouillon')" class="btn-secondary"/>
+                <button string="Générer un bon de livraison" type="object" name="action_generer_bon_livraison" invisible="statut != 'livre'" class="oe_highlight"/>
+                <button string="Annuler" class="btn-default" special="cancel"/>
+                <field name="statut" widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group>
+                    <group>
+                        <field name="chantier_id" />
+                        <field name="etape_id" />
+                    </group>
+                    <group>
+                        <field name="date"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Matériaux demandés">
+                        <field name="detail_ids">
+                            <tree editable="bottom">
+                                <field name="article_id"/>
+                                <field name="quantite"/>
+                                <field name="unite"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+            </div>
+        </form>
+    </field>
+</record>
+
+    <record id="view_demande_materiaux_tree" model="ir.ui.view">
+    <field name="name">demande.materiaux.tree</field>
+    <field name="model">construction.demande.materiaux</field>
+    <field name="arch" type="xml">
+        <tree string="Demandes de Matériaux">
+            <field name="name" />
+            <field name="chantier_id" />
+            <field name="etape_id" />
+            <field name="date" />
+            <field name="statut" />
+        </tree>
+    </field>
+    </record>
+
+    <record id="view_demande_materiaux_search" model="ir.ui.view">
+    <field name="name">demande.materiaux.search</field>
+    <field name="model">construction.demande.materiaux</field>
+    <field name="arch" type="xml">
+        <search string="Recherche de Demandes de Matériaux">
+            <field name="name" string="Objet de la demande"/>
+            <field name="chantier_id" string="Chantier"/>
+            <field name="etape_id" string="Étape"/>
+            <field name="statut" string="Statut" />
+        </search>
+    </field>
+    </record>
+
+
+    <record id="action_demande_materiaux" model="ir.actions.act_window">
+        <field name="name">Demandes de Matériaux</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_demande_materiaux_tree"/>
+    </record>
+
+
+    <!-- Action pour afficher les demandes en statut 'Brouillon' -->
+    <record id="action_demande_materiaux_brouillon" model="ir.actions.act_window">
+        <field name="name">Demandes Brouillon</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('statut', '=', 'brouillon')]</field>
+        <field name="context">{'search_default_statut': 'brouillon'}</field>
+    </record>
+
+    <!-- Action pour afficher les demandes en statut 'En attente de validation' -->
+    <record id="action_demande_materiaux_en_attente_validation" model="ir.actions.act_window">
+        <field name="name">Demandes en attente de validation</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('statut', '=', 'en_attente_validation')]</field>
+        <field name="context">{'search_default_statut': 'en_attente_validation'}</field>
+    </record>
+
+    <!-- Action pour afficher les demandes en statut 'Validé' -->
+    <record id="action_demande_materiaux_valide" model="ir.actions.act_window">
+        <field name="name">Demandes Validées</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('statut', '=', 'valide')]</field>
+        <field name="context">{'search_default_statut': 'valide'}</field>
+    </record>
+
+    <!-- Action pour afficher les demandes en statut 'Livré' -->
+    <record id="action_demande_materiaux_livre" model="ir.actions.act_window">
+        <field name="name">Demandes Livrées</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('statut', '=', 'livre')]</field>
+        <field name="context">{'search_default_statut': 'livre'}</field>
+    </record>
+
+    <!-- Action pour afficher les demandes en statut 'Annulé' -->
+    <record id="action_demande_materiaux_cancel" model="ir.actions.act_window">
+        <field name="name">Demandes Annulées</field>
+        <field name="res_model">construction.demande.materiaux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('statut', '=', 'cancel')]</field>
+        <field name="context">{'search_default_statut': 'cancel'}</field>
+    </record>
+
+
+
+
+
+</odoo>

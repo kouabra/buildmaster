@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Vue Pivot pour l'analyse des ouvrages -->
+    <record id="view_pivot_construction_analysis" model="ir.ui.view">
+        <field name="name">construction.ouvrage.pivot</field>
+        <field name="model">construction.ouvrage</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse des Ouvrages">
+                <field name="entrepreneur_id" type="row"/>
+                <field name="statut" type="col"/>
+                <field name="cout_material" type="measure"/>
+                <field name="cout_construction" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Vue Graph pour l'analyse des coûts d'ouvrage -->
+    <record id="view_graph_construction_analysis" model="ir.ui.view">
+        <field name="name">construction.ouvrage.graph</field>
+        <field name="model">construction.ouvrage</field>
+        <field name="arch" type="xml">
+            <graph string="Analyse des Coûts" type="bar">
+                <field name="entrepreneur_id" type="row"/>
+                <field name="cout_material" type="measure"/>
+                <field name="cout_construction" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action pour ouvrir la vue d'analyse -->
+    <record id="action_construction_analysis" model="ir.actions.act_window">
+        <field name="name">Analyse des Ouvrages</field>
+        <field name="res_model">construction.ouvrage</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{}</field>
+    </record>
+
+
+    <!-- Vue Pivot pour l'analyse des factures -->
+    <record id="view_pivot_ouvrage_invoice_analysis" model="ir.ui.view">
+        <field name="name">account.move.ouvrage.pivot</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Analyse des Factures des Ouvrages">
+                <field name="partner_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Vue Graph pour l'analyse des factures -->
+    <record id="view_graph_ouvrage_invoice_analysis" model="ir.ui.view">
+        <field name="name">account.move.ouvrage.graph</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <graph string="Analyse des Factures des Ouvrages" type="bar">
+                <field name="partner_id" type="row"/>
+                <field name="amount_total" type="measure"/>
+                <field name="date" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+     <!-- Action pour afficher les vues pivot et graph -->
+    <record id="action_ouvrage_invoice_analysis" model="ir.actions.act_window">
+        <field name="name">Analyse des Factures Ouvrages</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="context">{'search_default_ouvrage': 1}</field>
+        <field name="domain">[('ouvrage', '=', True)]</field>
+    </record>
+</odoo>

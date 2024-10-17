@@ -1,0 +1,61 @@
+<odoo>
+    <!-- Vue Formulaire pour les Types d'Ouvrages -->
+    <record id="view_construction_type_form" model="ir.ui.view">
+        <field name="name">construction.type.form</field>
+        <field name="model">construction.type</field>
+        <field name="arch" type="xml">
+            <form string="Type d'Ouvrage">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" string="Nom du type d'ouvrage" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="cout_material"/>
+                        </group>
+                        <group>
+                            <field name="cout_construction"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="materiaux_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantite"/>
+                                    <field name="unite"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <field name="description" string="Description" placeholder="Ajoutez une description du type d'ouvrage..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue Liste pour les Types d'Ouvrages -->
+    <record id="view_construction_type_tree" model="ir.ui.view">
+        <field name="name">construction.type.tree</field>
+        <field name="model">construction.type</field>
+        <field name="arch" type="xml">
+            <tree string="Types d'Ouvrages">
+                <field name="name" string="Nom du type d'ouvrage"/>
+                <field name="description" string="Description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action pour ouvrir les types d'ouvrages -->
+    <record id="action_construction_type" model="ir.actions.act_window">
+        <field name="name">Types d'Ouvrages</field>
+        <field name="res_model">construction.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_construction_type_tree"/>
+    </record>
+
+   </odoo>

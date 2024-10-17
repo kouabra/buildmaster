@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- data/etape_data.xml -->
+
+    <record id="construction_type_villa_duplex" model="construction.type">
+        <field name="name">Villa Duplex</field>
+    </record>
+
+
+    <record id="etape_terrassement" model="construction.etape">
+        <field name="sequence">1</field>
+        <field name="name">Terrassement</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_etude_geo'), ref('sous_etape_decapage'), ref('sous_etape_nivellement')])]"/>
+    </record>
+
+    <record id="etape_fondation" model="construction.etape">
+        <field name="sequence">2</field>
+        <field name="name">Fondations</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_coffrage'), ref('sous_etape_armature'), ref('sous_etape_beton')])]"/>
+    </record>
+
+    <record id="etape_elevation_murs" model="construction.etape">
+        <field name="sequence">3</field>
+        <field name="name">Élévation des murs</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_murs_rdc'), ref('sous_etape_poteaux'), ref('sous_etape_linteaux')])]"/>
+    </record>
+
+    <record id="etape_dalle" model="construction.etape">
+        <field name="sequence">4</field>
+        <field name="name">Dalle</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_coffrage_dalle'), ref('sous_etape_armature_dalle'), ref('sous_etape_beton_dalle')])]"/>
+    </record>
+
+    <record id="etape_charpente" model="construction.etape">
+        <field name="sequence">5</field>
+        <field name="name">Charpente et Couverture</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_charpente'), ref('sous_etape_couverture')])]"/>
+    </record>
+
+    <record id="etape_second_oeuvre" model="construction.etape">
+        <field name="sequence">6</field>
+        <field name="name">Travaux de Second Œuvre</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_electricite'), ref('sous_etape_plomberie'), ref('sous_etape_cloison')])]"/>
+    </record>
+
+    <record id="etape_finitions" model="construction.etape">
+        <field name="sequence">7</field>
+        <field name="name">Finitions</field>
+        <field name="type_ouvrage_id" ref="construction_type_villa_duplex"/>
+        <field name="sous_etape_ids" eval="[(6, 0, [ref('sous_etape_menuiserie'), ref('sous_etape_sanitaire'), ref('sous_etape_peinture')])]"/>
+    </record>
+
+</odoo>

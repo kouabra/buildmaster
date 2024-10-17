@@ -1,0 +1,28 @@
+<odoo>
+
+     <!-- Menu pour accéder à l'action des électeurs -->
+    <menuitem id="menu_buildmaster_root" name="Build Master" sequence="10" web_icon="buildmaster,static/description/icon.png"/>
+        <!-- Menu pour accéder aux ouvrages -->
+        <menuitem sequence="1" id="menu_construction_ouvrage" name="Ouvrages" parent="menu_buildmaster_root" action="action_construction_ouvrage"/>
+        <menuitem  sequence="10" id="menu_construction_site" name="Chantiers" parent="menu_buildmaster_root" action="project.open_view_project_all"/>
+        <menuitem  sequence="20" id="menu_prin_demande" name="Demandes de matériaux" parent="menu_buildmaster_root" action="action_demande_materiaux"/>
+            <menuitem  sequence="20" id="menu_demande_materiaux" name="Toutes les demandes" parent="menu_prin_demande" action="action_demande_materiaux"/>
+            <menuitem  sequence="30" id="menu_demande_materiaux_en_attente_validation" name="Demandes en attentes" parent="menu_prin_demande" action="action_demande_materiaux_en_attente_validation"/>
+            <menuitem  sequence="40" id="menu_demande_materiaux_brouillon" name="Demandes en brouillon" parent="menu_prin_demande" action="action_demande_materiaux_brouillon"/>
+            <menuitem  sequence="50" id="menu_demande_materiaux_valide" name="Demandes en validées" parent="menu_prin_demande" action="action_demande_materiaux_valide"/>
+            <menuitem  sequence="60" id="menu_demande_materiaux_livre" name="Demandes en livréés" parent="menu_prin_demande" action="action_demande_materiaux_livre"/>
+            <menuitem  sequence="100" id="menu_demande_materiaux_cancel" name="Demandes en annulées" parent="menu_prin_demande" action="action_demande_materiaux_cancel"/>
+        <menuitem  sequence="25" id="menu_analyse" name="Analyses" parent="menu_buildmaster_root"/>
+            <menuitem id="menu_construction_analysis" name="Analyse des Ouvrages"
+              parent="menu_analyse" action="action_construction_analysis"/>
+            <menuitem id="menu_invoice_analysis" name="Analyse des Factures"
+              parent="menu_analyse" action="action_ouvrage_invoice_analysis"/>
+
+        <menuitem  sequence="30" id="menu_construction_partner" name="Entrepreneurs" parent="menu_buildmaster_root" action="action_entrepreneur"/>
+         <!-- Menu pour accéder aux types d'ouvrages -->
+        <menuitem id="menu_configuration_type_root" parent="menu_buildmaster_root" name="Configuration" sequence="100"/>
+        <menuitem id="menu_construction_type" name="Types d'Ouvrages" parent="menu_configuration_type_root" action="action_construction_type" sequence="10"/>
+        <menuitem id="menu_construction_etape" name="Étapes" parent="menu_configuration_type_root" action="action_construction_etape" sequence="10"/>
+        <menuitem id="menu_construction_sous_etape" name="Sous-Étapes" parent="menu_configuration_type_root" action="action_sous_etape" sequence="10"/>
+
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Ajoutez votre champ ouvrage_id après le champ que vous souhaitez cibler -->
+            <xpath expr="//field[@name='function']" position="before">
+                <field name="est_entrepreneur" widget="boolean_toggle"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Ouvrage">
+                    <separator string="Point des factures"/>
+                    <group>
+                        <group>
+                            <field name="total_facture"/>
+                            <field name="nbr_facture"/>
+                        </group>
+                        <group>
+                            <field name="total_du"/>
+                        </group>
+                    </group>
+                    <separator string="Statistiques"/>
+                    <group>
+                        <group>
+                            <field name="nbr_ouvrage_confirme"/>
+                            <field name="nbr_ouvrage_en_cours"/>
+                        </group>
+                        <group>
+                            <field name="nbr_ouvrage_termine"/>
+                        </group>
+                    </group>
+                    <separator string="Liste des ouvragres"/>
+                    <field name="ouvrage_ids" readonly="1">
+                        <tree>
+                            <field name="code_ouvrage"/>
+                            <field name="name"/>
+                            <field name="type_ouvrage_id"/>
+                            <field name="cout_material" sum="Total"/>
+                            <field name="cout_construction" sum="Total"/>
+                            <field name="date_debut"/>
+                            <field name="date_fin"/>
+                            <field name="statut"/>
+                            <field name="pourcentage_realisation"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+     <!-- Action pour afficher les ouvrages -->
+    <record id="action_entrepreneur" model="ir.actions.act_window">
+        <field name="name">Entrepreneur</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('est_entrepreneur', '=', True)]</field>
+        <field name="context">{'default_est_entrepreneur': True}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_create">
+                Cliquez sur "Créer" pour ajouter un nouvel ouvrage.
+            </p>
+        </field>
+    </record>
+
+</odoo>

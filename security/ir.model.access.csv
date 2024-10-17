@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+0001,Res Partner,base.model_res_partner,base.group_erp_manager,1,1,1,1
+0002,construction_materiaux,model_construction_materiaux,base.group_erp_manager,1,1,1,1
+0003,model_construction_ouvrage,model_construction_ouvrage,base.group_erp_manager,1,1,1,1
+0004,model_construction_ouvrage,model_construction_type,base.group_erp_manager,1,1,1,1
+0005,construction.etape,model_construction_etape,base.group_erp_manager,1,1,1,1
+0006,construction.sous.etape,model_construction_sous_etape,base.group_erp_manager,1,1,1,1
+0007,construction.demande.materiaux,model_construction_demande_materiaux,base.group_erp_manager,1,1,1,1
+0008,construction.demande.detail,model_construction_demande_detail,base.group_erp_manager,1,1,1,1
+0009,construction.materiaux.type,model_construction_materiaux_type,base.group_erp_manager,1,1,1,1

@@ -1,0 +1,173 @@
+<odoo>
+    <!-- Vue de liste (Tree) des ouvrages -->
+    <record id="view_construction_ouvrage_tree" model="ir.ui.view">
+        <field name="name">construction.ouvrage.tree</field>
+        <field name="model">construction.ouvrage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code_ouvrage"/>
+                <field name="name"/>
+                <field name="type_ouvrage_id"/>
+                <field name="lot"/>
+                <field name="entrepreneur_id"/>
+                <field name="cout_ouvrage"/>
+                <field name="date_debut"/>
+                <field name="date_fin"/>
+                <field name="statut"/>
+                <field name="pourcentage_realisation"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Vue de formulaire (Form) des ouvrages -->
+    <record id="view_construction_ouvrage_form" model="ir.ui.view">
+        <field name="name">construction.ouvrage.form</field>
+        <field name="model">construction.ouvrage</field>
+        <field name="arch" type="xml">
+            <form string="Ouvrage">
+                <header>
+                    <button string="Générer une facture" type="object" name="action_generer_facture_fournisseur" class="oe_highlight" invisible="statut != 'confirme'"/>
+                    <button string="Confirmer" type="object" name="action_confirmer" class="oe_highlight" invisible="statut != 'brouillon'"/>
+                    <button string="Démarrer" type="object" name="action_demarrer" class="oe_highlight" invisible="statut != 'confirme'"/>
+                    <button string="Suspendre" type="object" name="action_suspendre" class="oe_highlight" invisible="statut != 'en_cours'"/>
+                    <button string="Terminer" type="object" name="action_terminer" class="oe_highlight" invisible="statut not in ('en_cours', 'suspendu')"/>
+                    <button string="Remettre à Brouillon" type="object" name="action_remettre_brouillon" class="oe_highlight"/>
+                    <field name="statut" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div name="button_box">
+                        <button class="oe_stat_button" type="object" name="open_invoice" icon="fa-file-invoice" invisible="invoice_id == False">
+                            <field string="Facture" name="invoice_id" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <field name="code_ouvrage" readonly="1" string="Code de l'ouvrage"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="client_id" placeholder="Client"/>
+                        </h1>
+                    </div>
+                    <separator string="Information générale"/>
+                    <group>
+                        <group>
+                            <field name="type_ouvrage_id" string="Type d'ouvrage" required="1"/>
+                            <field name="date_debut" string="Date de début" required="1"/>
+                            <field name="date_fin" string="Date de fin" required="1"/>
+                            <field name="name" placeholder="Titre d'ouvrage"/>
+                            <field name="superviseur_id"/>
+                        </group>
+                        <group>
+
+                            <field name="jours_total_construction"/>
+                            <field name="jours_restants"/>
+                            <field name="cout_material" widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                            <field name="cout_construction" widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                        </group>
+                    </group>
+                    <separator string="Information supplémentaire"/>
+                    <group>
+                        <group>
+                            <field name="cout_ouvrage" string="Coût de l'ouvrage"  widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                            <field name="prix_vente" string="Prix de vente"  widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                            <field name="benefice_realise" readonly="1" string="Bénéfice réalisé"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="pourcentage_realisation" widget="progressbar"  readonly="1" string="Progression"/>
+                            <field name="entrepreneur_id" domain="[('est_entrepreneur', '=', True)]" string="Entrepreneur associé" required="1"/>
+                            <field name="type_contrat" readonly="0" />
+                            <field name="project_id" readonly="1" string="Projet associé"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Matériaux prévus">
+                            <field name="materiaux_ids">
+                                <tree string="Matériaux">
+                                    <field name="product_id" string="Matériau"/>
+                                    <field name="quantite" string="Quantité"/>
+                                </tree>
+                                <form string="Matériau">
+                                    <group>
+                                        <field name="product_id" string="Matériau"/>
+                                        <field name="quantite" string="Quantité"/>
+                                        <field name="unite"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Localisation">
+                            <group>
+                                <group>
+                                    <field name="longitude" string="Longitude"/>
+                                    <field name="latitude" string="Latitude"/>
+                                </group>
+                                <group>
+                                    <field name="lot" string="Lot"/>
+                                    <field name="ilot" string="Ilot"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Étapes">
+                            <field name="etapes_ids">
+                                <tree string="Matériaux">
+                                    <field name="name"/>
+                                    <field name="type_ouvrage_id"/>
+                                </tree>
+                                <form string="Étapes">
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                        <group>
+                                            <field name="type_ouvrage_id"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Sous-Étapes">
+                                            <field name="sous_etape_ids" readonly="1">
+                                                <tree editable="bottom">
+                                                    <field name="sequence" widget="handle"/>
+                                                    <field name="name"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action pour afficher les ouvrages -->
+    <record id="action_construction_ouvrage" model="ir.actions.act_window">
+        <field name="name">Ouvrages</field>
+        <field name="res_model">construction.ouvrage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_create">
+                Cliquez sur "Créer" pour ajouter un nouvel ouvrage.
+            </p>
+        </field>
+    </record>
+
+     <!-- Action pour afficher les ouvrages -->
+    <record id="action_project_project" model="ir.actions.act_window">
+        <field name="name">Chantiers</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_create">
+                Cliquez sur "Créer" pour ajouter un nouvel ouvrage.
+            </p>
+        </field>
+    </record>
+
+  </odoo>
